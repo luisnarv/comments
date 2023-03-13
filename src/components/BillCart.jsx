@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { useDispatch } from "react-redux";
-import { deleteOfCart } from "../reducer";
+import { emptyCart } from "../reducer";
 
 export default function BillCart(props) {
   const { showAlert, setShowAlert, products } = props;
@@ -31,7 +31,7 @@ export default function BillCart(props) {
 
   const handleClose = () => {
     const value = "deleteAll";
-    dispatch(deleteOfCart(value));
+    dispatch(emptyCart(value));
     setShowAlert(false);
   };
 

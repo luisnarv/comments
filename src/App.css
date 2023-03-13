@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
 }
 
 .route{
     flex-grow: 1;
+    background-color: whitesmoke;
 }

@@ -1,25 +1,19 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
-import { setItem } from "../utils/localStorage";
-import { setState } from "../reducer";
 import img from "../images/logonav.png";
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const cartLength = useSelector((state) => state.cart.length);
   const sessionId = useSelector((state) => state.sessionId?.name);
   function handleLogout() {
-    setItem("cart", []);
-    setItem("sessionId", undefined);
-    dispatch(setState());
     navigate("/home");
   }
 

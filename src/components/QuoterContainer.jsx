@@ -23,7 +23,7 @@ export default function QuoterContainer() {
                             className="p-4 fs-4"
                             variant="outline-secondary" 
                             as={Link} 
-                            to={`/quoter`}>
+                            to={`/search`}>
                         <img src={test} className="mx-2 p-2" style={{ height: '90px'}} alt=""/>Cotizar analisis
                            
                     </Button>

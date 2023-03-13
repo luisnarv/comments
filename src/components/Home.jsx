@@ -4,7 +4,6 @@ import QuoterContainer from './QuoterContainer'
 import Slides from './Slides'
 import CarouselCards from './CarouselCards'
 
-
 export default function Home() {
     
     return (

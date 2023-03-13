@@ -1,97 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getItem } from "./utils/localStorage";
+import { createSlice } from '@reduxjs/toolkit'
+import { getItem, setItem } from './utils/localStorage'
 
 const slice = createSlice({
-  name: "counter",
-  initialState: {
-    sessionId: getItem("sessionId") || undefined,
-    tests: [],
-    filteredTests: [],
-    samples: [],
-    categories: [],
-    cart: getItem("cart") || [],
-    orders:[],  
-  },
-  reducers: {
-    loadOrders( state, action){
-      state.orders=action.payload},      
-
-    loadTests(state, action) {
-      state.tests = action.payload;
-      state.filteredTests = action.payload;
+    name: 'store',
+    initialState: {
+        token: getItem('token') || undefined,
+        name: getItem('name') || undefined,
+        avatar: getItem('avatar') || undefined,
+        role: getItem('role') || undefined,
+        cart: getItem('cart') || [],
     },
-    loadSamples(state, action) {
-      state.samples = action.payload;
+    reducers: {
+        setToken(state, action) {
+            state.token = action.payload
+            setItem('token', action.payload)
+        },
+        setName(state, action) {
+            state.name = action.payload
+            setItem('name', action.payload)
+        },
+        setAvatar(state, action) {
+            state.avatar = action.payload
+            setItem('avatar', action.payload)
+        },
+        setRole(state, action) {
+            state.role = action.payload
+            setItem('role', action.payload)
+        },
+        addToCart(state, action) {
+            state.cart.push(action.payload)
+        },
+        removeFromCart(state, action) {
+            state.cart = state.cart.filter(c => c !== action.payload)
+        },
+        emptyCart(state) {
+            state.cart = []
+        }
     },
-    loadCategories(state, action) {
-      state.categories = action.payload;
-    },
-    addToCart(state, action) {
-      const findIdTest = state.cart.findIndex((e) => e === action.payload);
-      if (findIdTest === -1) {
-        state.cart.push(action.payload);
-      }
-    },
-    deleteOfCartId(state, action) {
-      const stateCart = state.cart;
-      const index = stateCart.indexOf(action.payload);
-      if (index !== -1) {
-        stateCart.splice(index, 1);
-      }
-      state.cart = stateCart;
-    },
-    deleteOfCart(state, action) {
-      if (action.payload === "deleteAll") {
-        state.cart = [];
-      }
-      state.cart = state.cart.filter((e) => e !== action.payload);
-    },
-    setSessionId(state, action) {
-      state.sessionId = action.payload;
-    },
-    testsFilter(state, action) {
-      const { category, sample } = action.payload;
-      let categoriesFiltered = [];
-      let sampleFiltered = [];
-      !category
-        ? (categoriesFiltered = state.tests)
-        : (categoriesFiltered = state.tests.filter(
-            (test) => test.category === category
-          ));
-      !sample
-        ? (sampleFiltered = categoriesFiltered)
-        : (sampleFiltered = categoriesFiltered.filter(
-            (test) => test.sample === sample
-          ));
-      state.filteredTests = sampleFiltered;
-    },
-    searchFilter(state, action) {
-      state.filteredTests = state.tests.filter((test) =>
-        test.name.toLowerCase().includes(action.payload.toLowerCase())
-      );
-    },
-    clearFilter(state) {
-      state.filteredTests = state.tests;
-    },
-    setState(state, action) {
-      state.sessionId = undefined;
-      state.cart = [];
-    },
-  },
-});
+})
 
 export const {
-  loadTests,
-  loadSamples,
-  loadCategories,
-  addToCart,
-  setSessionId,
-  testsFilter,
-  clearFilter,
-  searchFilter,
-  deleteOfCartId,
-  deleteOfCart,
-  setState,
-  loadOrders,
-} = slice.actions;
-export default slice.reducer;
+    setToken, setName, setAvatar, setRole,
+    addToCart, removeFromCart, emptyCart
+} = slice.actions
+
+export default slice.reducer

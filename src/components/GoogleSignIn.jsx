@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setSessionId } from '../reducer'
-import { setItem } from '../utils/localStorage'
+import { setToken, setName, setAvatar, setRole } from '../reducer'
 
 const BACK = process.env.REACT_APP_BACK
 
@@ -22,7 +21,7 @@ export default function GoogleSignIn() {
     const navigate = useNavigate()
 
     const handleCredentialResponse = ({ credential }) => {
-        fetch(`${BACK}/patients/google`, {
+        fetch(`${BACK}/users/google`, {
             method: 'post',
             headers: {
                 'token': credential
@@ -30,13 +29,15 @@ export default function GoogleSignIn() {
         })
             .then(async response => ({
                 token: response.headers.get('token'),
-                name: await response.json().then(o => o.name)
+                body: await response.json()
             }))
             .then(data => {
-                dispatch(setSessionId(data))
-                setItem('sessionId', data)
+                dispatch(setToken(data.token))
+                dispatch(setName(data.body.name))
+                dispatch(setAvatar(data.body.avatar))
+                dispatch(setRole(data.body.role))
             })
-            .then(() => navigate('/user'))
+            .then(() => navigate('/home'))
     }
 
     useEffect(() => {
@@ -58,6 +59,7 @@ export default function GoogleSignIn() {
                 locale: 'es_ES'
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

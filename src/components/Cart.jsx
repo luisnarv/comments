@@ -5,16 +5,17 @@ import CloseButton from "react-bootstrap/CloseButton";
 
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { deleteOfCart } from "../reducer";
+import { Link } from "react-router-dom";
 import { setItem } from "../utils/localStorage";
 
 import OffCanvasCart from "./OffCanvasCart";
 import BillCart from "./BillCart";
 import Signup from "./Signup";
+import { emptyCart, removeFromCart } from "../reducer";
+
+const BACK = process.env.REACT_APP_BACK
 
 export default function Cart() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // Panel de pagos (agregar)
@@ -25,22 +26,20 @@ export default function Cart() {
 
   const handleShow = () => setShow(true);
 
-  const tests = useSelector((state) => state.tests);
   const cart = useSelector((state) => state.cart);
   const sessionId = useSelector((state) => state.sessionId);
-  const [products, setProducts] = useState(
-    tests.filter((e) => cart.includes(e.id))
-  );
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    setProducts(tests.filter((e) => cart.includes(e.id)));
     setItem("cart", cart);
-  }, [cart, tests]);
+  }, [cart]);
+
+  useEffect(() => {
+    Promise.all(cart.map(c => fetch(`${BACK}/tests/${c}`).then(res => res.json()))).then(products => setProducts(products))
+  }, [cart])
 
   function handleClickDelete(e) {
-    const { id } = e.target;
-    const idInt = parseInt(id);
-    dispatch(deleteOfCart(idInt));
+    dispatch(removeFromCart(e.target.id))
   }
 
   function handleSubmit() {
@@ -66,8 +65,7 @@ export default function Cart() {
       <div style={{ width: "90%", position: "relative" }}>
         <Button
           variant="secondary"
-          value={"deleteAll"}
-          onClick={(e) => dispatch(deleteOfCart(e.target.value))}
+          onClick={() => dispatch(emptyCart())}
           style={{ position: "absolute", right: "0px" }}
         >
           Vaciar carrito
