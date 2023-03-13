@@ -1,6 +1,5 @@
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import NavBar from "./components/NavBar";
 import Signup from "./components/Signup";
 import About from "./components/About";
 import Contact from "./components/Contact";
@@ -40,7 +39,7 @@ export default function App() {
     <div className="App">
       <ThemeProvider theme={darkTheme}>
         <NavUI />
-        <NavBar />
+        <div style={{ height: 69 }} />
         <div className="route">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -60,8 +59,8 @@ export default function App() {
             {/* <Route path="/user" element={<User />}  onEnter={requireAuth}  /> */}
             {/* pregunta si hay algo en el token al momento de buscar la url user si no tiene nada manda al componente de error */}
             {/* modifica la url con el nombre del usuario (`/user/${usuario}`) */}
-            <Route path={`/dashboardui`} element={<DashboardUI />}/>
-        </Routes>
+            <Route path={`/dashboardui`} element={<DashboardUI />} />
+          </Routes>
         </div>
         <Footer />
       </ThemeProvider>

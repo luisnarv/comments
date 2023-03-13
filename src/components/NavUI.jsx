@@ -1,29 +1,24 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setAvatar, setName, setRole, setToken } from '../reducer';
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Badge from '@mui/material/Badge';
-import './UIStyles.css'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import {
+    AppBar, Avatar, Badge, Box, Button, Container,
+    IconButton, Menu, MenuItem, Toolbar, Tooltip,
+    Typography
+} from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import MenuIcon from '@mui/icons-material/Menu'
+
+// reducer
+import { setAvatar, setName, setRole, setToken } from '../reducer'
 
 export default function NavUI() {
+    // dispatch hook
     const dispatch = useDispatch()
+    // navigate hook
     const navigate = useNavigate()
-
+    // get cart, name and avatar from store
     const onCart = useSelector((state) => state.cart.length)
     const name = useSelector((state) => state.name)
     const avatar = useSelector((state) => state.avatar)
@@ -44,7 +39,7 @@ export default function NavUI() {
         dispatch(setName(undefined))
         dispatch(setRole(undefined))
         dispatch(setAvatar(undefined))
-        navigate('/home');
+        navigate('/home')
     }
 
     return (
@@ -73,9 +68,6 @@ export default function NavUI() {
                         <Button component={Link} to="/home" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                             Home
                         </Button>
-                        <Button component={Link} to="/signup" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
-                            Sign In
-                        </Button>
                         <IconButton component={Link} to="/search" size="large" color="inherit">
                             <Badge color="error">
                                 <SearchIcon />
@@ -87,10 +79,10 @@ export default function NavUI() {
                             </Badge>
                         </IconButton>
                     </Box>
-                    <Typography onClick={handleCloseNavMenu} sx={{ marginRight: 1 }}>
+                    <Typography color="primary" onClick={handleCloseNavMenu} sx={{ marginRight: 1 }}>
                         {name ? name : null}
                     </Typography>
-                    <Box sx={{ flexGrow: 0 }}>
+                    {name ? <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt={name ? name : null} referrerPolicy="no-referrer" src={avatar} />
@@ -108,9 +100,11 @@ export default function NavUI() {
                                 </Typography>
                             </MenuItem>
                         </Menu>
-                    </Box>
+                    </Box> : <Button component={Link} to="/signup" onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                        Sign In
+                    </Button>}
                 </Toolbar>
             </Container>
         </AppBar >
-    );
+    )
 }

@@ -14,19 +14,6 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
 
 const BACK = process.env.REACT_APP_BACK
 
-const Profile = styled(Paper)(({ theme }) => ({
-    width: 320,
-    height: 340,
-    borderRadius: 10,
-    padding: 10,
-    margin: 10,
-    color: '#202020',
-    border: '1px solid coral',
-    background: 'linear-gradient(0deg, rgba(255,167,122,1) 0%, rgba(255,210,188,1) 100%)',
-    transition: 'border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-    boxShadow: 'inset 0 -3em 3em rgb(255 59 0 / 25%), 0.3em 0.3em 1em rgb(0 0 0 / 30%)'
-}))
-
 const Typo = styled(Typography)(({ theme }) => ({
     marginBottom: 1,
     lineHeight: 2,
@@ -47,49 +34,49 @@ export default function ProfileUI() {
     }, [token])
 
     return (
-        <Profile>
+        <Paper sx={{ height: 340, padding: '10px', margin: 0.5, boxShadow: '0px 0px 10px 0px #00000047' }}>
             <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
                 <Avatar alt={user.name} referrerPolicy="no-referrer" src={user.photo} sx={{ width: 100, height: 100 }} />
-                <Typography variant="h6" fontWeight={700} fontStyle="italic" sx={{ fontFamily: 'unset' }}>
+                <Typography variant="h6" color="primary" fontWeight={700} fontStyle="italic" sx={{ fontFamily: 'unset' }}>
                     {name}
                 </Typography>
                 <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
-                    <Typo variant="body2">
+                    <Typo variant="body2" color="primary">
                         <MedicalInformationIcon /> {user.id}
                     </Typo>
-                    <Typo variant="body2">
+                    <Typo variant="body2" color="primary">
                         <EmailIcon /> {user.email}
                     </Typo>
-                    <Typo variant="body2">
+                    <Typo variant="body2" color="primary">
                         <AccessTimeFilledIcon />{user.createdAt}
                     </Typo>
                     <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-                        <Typo variant="body2">
+                        <Typo variant="body2" color="primary">
                             <LocalPhoneIcon />{user.phone}
                         </Typo>
-                        <Typo variant="body2">
+                        <Typo variant="body2" color="primary">
                             <FingerprintIcon />{user.dni}
                         </Typo>
                     </Grid>
                     <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-                        <Typo variant="body2">
+                        <Typo variant="body2" color="primary">
                             <VerifiedUserIcon />{user.username}
                         </Typo>
-                        <Typo variant="body2">
+                        <Typo variant="body2" color="primary">
                             <PolicyIcon />{user.role ? user.role : 'Paciente'}
                         </Typo>
                     </Grid>
                     <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-                        <Typo variant="body2">
+                        <Typo variant="body2" color="primary">
                             {user.sex === 'M' ? <><MaleIcon />Hombre</> : null}
                             {user.sex === 'F' ? <><FemaleIcon />Mujer</> : null}
                         </Typo>
-                        <Typo variant="body2">
+                        <Typo variant="body2" color="primary">
                             <ChurchIcon />{user.civil}
                         </Typo>
                     </Grid>
                 </Grid>
             </Grid>
-        </Profile>
+        </Paper>
     )
 }

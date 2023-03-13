@@ -15,7 +15,7 @@ const BACK = process.env.REACT_APP_BACK;
 export default function OffCanvasCart(props) {
   const { show, setShow, setShowAlert, cart } = props;
   const handleClose = () => setShow(false);
-  const token = useSelector((state) => state.sessionId?.token);
+  const token = useSelector((state) => state.token)
   const [creditCard, setCreditCard] = useState({
     name: "",
     number: "",
@@ -101,16 +101,10 @@ export default function OffCanvasCart(props) {
       return;
     } else {
       try {
-        const config = {
-          headers: { token: `${token}` }, // se envía el token por header
-        };
-        const data = {
-          tests: cart, // se envían los id de los productos agregados al carrito
-        };
-        await axios.post(`${BACK}/orders`, data, config);
-      } catch (error) {
-        console.log(error.response.data);
-      }
+        const config = { headers: { token: `${token}` } }
+        const data = { tests: cart }
+        await axios.post(`${BACK}/orders`, data, config)
+      } catch (error) { console.log(error.response.data) }
     }
 
     handleClose();

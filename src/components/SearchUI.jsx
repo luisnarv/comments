@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Grid from '@mui/material/Grid';
-import TestUI from './TestUI';
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
-import Stack from '@mui/material/Stack';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { FormControl, FormHelperText, Paper, TextField } from '@mui/material';
+import { FormControl, FormHelperText, Grid, Pagination, PaginationItem, Paper, Stack, TextField } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+// components
+import TestUI from './TestUI'
 
 const BACK = process.env.REACT_APP_BACK
 
@@ -32,8 +29,8 @@ export default function TestsUI() {
             <Paper style={{ width: 360 }}>
                 <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
                     <FormControl sx={{ m: 1, width: 340 }}>
-                        <TextField value={search} onChange={e => setSearch(e.target.value)} id="outlined-search" label="Search field" type="search" />
-                        <FormHelperText>With label + helper text</FormHelperText>
+                        <TextField value={search} onChange={e => setSearch(e.target.value)} id="outlined-search" label="Busqueda" type="search" />
+                        <FormHelperText>Escribe tu exámen acá</FormHelperText>
                     </FormControl>
                     <Stack spacing={2}>
                         <Pagination
